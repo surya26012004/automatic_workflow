@@ -1,0 +1,4 @@
+shadcn-ui
+@aceternity/parallax
+@aceternity/3d-card
+@aceternity/animated-text
