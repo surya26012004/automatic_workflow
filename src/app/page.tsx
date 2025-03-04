@@ -46,13 +46,117 @@ export default function Home() {
       <LampComponent />
       <div className="flex flex-wrap items-center justify-center flex-col md:flex-row gap-8 -mt-72">
         <CardContainer className="inter-var ">
-          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-white/[0.2] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-[#E2CBFF] border-black/[1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
             <CardItem
               translateZ="50"
               className="text-xl font-bold text-neutral-600 dark:text-white "
             >
               Hobby
               <h2 className="text-6xl ">$0</h2>
+            </CardItem>
+            <CardItem
+              translateZ="60"
+              className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            >
+              Get a glimpse of what our software is capable of. Just a heads up{" "}
+              {"you'll"} never leave us after this!
+              <ul className="my-4 flex flex-col gap-2">
+                <li className="flex items-center gap-2">
+                  <CheckIcon />3 Free automations
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  100 tasks per month
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  Two-step Actions
+                </li>
+              </ul>
+            </CardItem>
+            <div className="flex justify-between items-center mt-8">
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+              >
+                <button className="group relative px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  Try Now
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    →
+                  </span>
+                </button>
+              </CardItem>
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+              >
+                Get Started Now
+              </CardItem>
+            </div>
+          </CardBody>
+        </CardContainer>
+        <CardContainer className="inter-var ">
+          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-[#E2CBFF] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+            <CardItem
+              translateZ="50"
+              className="text-xl font-bold text-neutral-600 dark:text-white "
+            >
+              Pro
+              <h2 className="text-6xl ">$10</h2>
+            </CardItem>
+            <CardItem
+              translateZ="60"
+              className="text-neutral-500 text-sm max-w-sm mt-2 dark:text-neutral-300"
+            >
+              Get a glimpse of what our software is capable of. Just a heads up{" "}
+              {"you'll"} never leave us after this!
+              <ul className="my-4 flex flex-col gap-2">
+                <li className="flex items-center gap-2">
+                  <CheckIcon />3 Free automations
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  100 tasks per month
+                </li>
+                <li className="flex items-center gap-2">
+                  <CheckIcon />
+                  Two-step Actions
+                </li>
+              </ul>
+            </CardItem>
+            <div className="flex justify-between items-center mt-8">
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+              >
+                <button className="group relative px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+                  Try Now
+                  <span className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    →
+                  </span>
+                </button>
+              </CardItem>
+              <CardItem
+                translateZ={20}
+                as="button"
+                className="px-4 py-2 rounded-xl bg-black dark:bg-white dark:text-black text-white text-xs font-bold"
+              >
+                Get Started Now
+              </CardItem>
+            </div>
+          </CardBody>
+        </CardContainer>
+        <CardContainer className="inter-var ">
+          <CardBody className="bg-gray-50 relative group/card  dark:hover:shadow-2xl dark:hover:shadow-neutral-500/[0.1] dark:bg-black dark:border-[#E2CBFF] border-black/[0.1] w-full md:!w-[350px] h-auto rounded-xl p-6 border">
+            <CardItem
+              translateZ="50"
+              className="text-xl font-bold text-neutral-600 dark:text-white "
+            >
+              Elite
+              <h2 className="text-6xl ">$99</h2>
             </CardItem>
             <CardItem
               translateZ="60"
