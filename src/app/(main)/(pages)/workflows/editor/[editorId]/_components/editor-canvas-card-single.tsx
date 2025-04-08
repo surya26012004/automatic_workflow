@@ -44,22 +44,22 @@ const EditorCanvasCardSingle = ({ data }: { data: EditorCanvasCardType }) => {
               },
             });
         }}
-        className="relative max-w-[400px] dark:border-muted-foreground/70"
+        className="relative min-w-[390px] min-h-[90px] max-w-[585px] p-3 dark:border-muted-foreground/70 border-2"
       >
-        <CardHeader className="flex flex-row items-center gap-4">
-          <div>{logo}</div>
-          <div>
-            <CardTitle className="text-md">{data.title}</CardTitle>
-            <CardDescription>
-              <p className="text-xs text-muted-foreground/50">
+        <CardHeader className="flex flex-row items-center gap-6 p-2">
+          <div className="flex-shrink-0 p-1">{logo}</div>
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-md mb-1">{data.title}</CardTitle>
+            <CardDescription className="w-full">
+              <p className="text-xs text-muted-foreground/50 mb-1">
                 <b className="text-muted-foreground/80">ID: </b>
                 {nodeId}
               </p>
-              <p>{data.description}</p>
+              <p className="break-words text-sm">{data.description}</p>
             </CardDescription>
           </div>
         </CardHeader>
-        <Badge variant="secondary" className="absolute right-2 top-2">
+        <Badge variant="secondary" className="absolute right-3 top-3">
           {data.type}
         </Badge>
         <div

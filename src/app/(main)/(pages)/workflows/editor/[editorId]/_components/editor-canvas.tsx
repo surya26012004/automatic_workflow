@@ -22,14 +22,13 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { usePathname } from "next/navigation";
 import { toast } from "sonner";
+import { usePathname } from "next/navigation";
 import { v4 } from "uuid";
-// import { EditorCanvasDefaultCardTypes } from '@/lib/constant'
-// import FlowInstance from './flow-instance'
-// import EditorCanvasSidebar from './editor-canvas-sidebar'
 import { EditorCanvasDefaultCardTypes } from "@/lib/constant";
-// import { onGetNodesEdges } from '../../../_actions/workflow-connections'
+import FlowInstance from "./flow-instance";
+import EditorCanvasSidebar from "./editor-canvas-sidebar";
+// import { onGetNodesEdges } from "../../../_actions/workflow-connections";
 
 type Props = {};
 
@@ -71,42 +70,6 @@ const EditorCanvas = (props: Props) => {
     []
   );
 
-  const handleClickCanvas = useCallback(() => {
-    dispatch({
-      type: "SELECTED_ELEMENT",
-      payload: {
-        element: {
-          data: {
-            completed: false,
-            current: false,
-            description: "",
-            metadata: {},
-            title: "",
-            type: "Trigger",
-          },
-          id: "",
-          position: { x: 0, y: 0 },
-          type: "Trigger",
-        },
-      },
-    });
-  }, [dispatch]);
-
-  const nodeTypes = {
-    Action: EditorCanvasCardSingle,
-    Trigger: EditorCanvasCardSingle,
-    Email: EditorCanvasCardSingle,
-    Condition: EditorCanvasCardSingle,
-    AI: EditorCanvasCardSingle,
-    Slack: EditorCanvasCardSingle,
-    "Google Drive": EditorCanvasCardSingle,
-    Notion: EditorCanvasCardSingle,
-    Discord: EditorCanvasCardSingle,
-    "Custom Webhook": EditorCanvasCardSingle,
-    "Google Calendar": EditorCanvasCardSingle,
-    Wait: EditorCanvasCardSingle,
-  };
-
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -138,10 +101,6 @@ const EditorCanvas = (props: Props) => {
         y: event.clientY,
       });
 
-      useEffect(() => {
-        dispatch({ type: "LOAD_DATA", payload: { edges, elements: nodes } });
-      }, [nodes, edges]);
-
       const newNode = {
         id: v4(),
         type,
@@ -160,6 +119,64 @@ const EditorCanvas = (props: Props) => {
     },
     [reactFlowInstance, state]
   );
+
+  const handleClickCanvas = () => {
+    dispatch({
+      type: "SELECTED_ELEMENT",
+      payload: {
+        element: {
+          data: {
+            completed: false,
+            current: false,
+            description: "",
+            metadata: {},
+            title: "",
+            type: "Trigger",
+          },
+          id: "",
+          position: { x: 0, y: 0 },
+          type: "Trigger",
+        },
+      },
+    });
+  };
+
+  useEffect(() => {
+    dispatch({ type: "LOAD_DATA", payload: { edges, elements: nodes } });
+  }, [nodes, edges]);
+
+  const nodeTypes = useMemo(
+    () => ({
+      Action: EditorCanvasCardSingle,
+      Trigger: EditorCanvasCardSingle,
+      Email: EditorCanvasCardSingle,
+      Condition: EditorCanvasCardSingle,
+      AI: EditorCanvasCardSingle,
+      Slack: EditorCanvasCardSingle,
+      "Google Drive": EditorCanvasCardSingle,
+      Notion: EditorCanvasCardSingle,
+      Discord: EditorCanvasCardSingle,
+      "Custom Webhook": EditorCanvasCardSingle,
+      "Google Calendar": EditorCanvasCardSingle,
+      Wait: EditorCanvasCardSingle,
+    }),
+    []
+  );
+
+  // const onGetWorkFlow = async () => {
+  //   setIsWorkFlowLoading(true);
+  //   const response = await onGetNodesEdges(pathname.split("/").pop()!);
+  //   if (response) {
+  //     setEdges(JSON.parse(response.edges!));
+  //     setNodes(JSON.parse(response.nodes!));
+  //     setIsWorkFlowLoading(false);
+  //   }
+  //   setIsWorkFlowLoading(false);
+  // };
+
+  // useEffect(() => {
+  //   onGetWorkFlow();
+  // }, []);
 
   return (
     <ResizablePanelGroup direction="horizontal">
@@ -243,10 +260,9 @@ const EditorCanvas = (props: Props) => {
             </svg>
           </div>
         ) : (
-          // <FlowInstance edges={edges} nodes={nodes}>
-          //   <EditorCanvasSidebar nodes={nodes} />
-          // </FlowInstance>
-          <></>
+          <FlowInstance edges={edges} nodes={nodes}>
+            <EditorCanvasSidebar nodes={nodes} />
+          </FlowInstance>
         )}
       </ResizablePanel>
     </ResizablePanelGroup>
