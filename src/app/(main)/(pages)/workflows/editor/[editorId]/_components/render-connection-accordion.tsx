@@ -2,7 +2,7 @@
 import React from "react";
 import ConnectionCard from "@/app/(main)/(pages)/connections/_components/connection-card";
 import { AccordionContent } from "@/components/ui/accordion";
-// import MultipleSelector from "@/components/ui/multiple-selector";
+import MultipleSelector from "@/components/ui/multiple-selector";
 import { Connection } from "@/lib/types";
 import { useNodeConnections } from "@/providers/connections-provider";
 import { EditorState } from "@/providers/editor-provider";
@@ -96,7 +96,7 @@ const RenderConnectionAccordion = ({
                   <div className="mb-4 ml-1">
                     Select the slack channels to send notification and messages:
                   </div>
-                  {/* <MultipleSelector
+                  <MultipleSelector
                     value={selectedSlackChannels}
                     onChange={setSelectedSlackChannels}
                     defaultOptions={slackChannels}
@@ -106,7 +106,7 @@ const RenderConnectionAccordion = ({
                         no results found.
                       </p>
                     }
-                  /> */}
+                  />
                 </>
               ) : (
                 "No Slack channels found. Please add your Slack bot to your Slack channel"

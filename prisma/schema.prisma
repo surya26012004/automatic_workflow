@@ -13,7 +13,6 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
 
-  clerkId      String  @unique
   name         String?
   email        String  @unique
   profileImage String?
@@ -57,8 +56,8 @@ model DiscordWebhook {
   guildName   String
   guildId     String
   channelId   String        @unique
-  user        User          @relation(fields: [userId], references: [clerkId])
-  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  userId      Int
   connections Connections[]
 }
 
@@ -73,8 +72,8 @@ model Slack {
   teamId           String
   teamName         String
 
-  User        User          @relation(fields: [userId], references: [clerkId])
-  userId      String
+  User        User          @relation(fields: [userId], references: [id])
+  userId      Int
   connections Connections[]
 }
 
@@ -85,8 +84,8 @@ model Notion {
   databaseId    String        @unique
   workspaceName String
   workspaceIcon String
-  User          User          @relation(fields: [userId], references: [clerkId])
-  userId        String
+  User          User          @relation(fields: [userId], references: [id])
+  userId        Int
   connections   Connections[]
 }
 
@@ -97,8 +96,8 @@ model Connections {
   discordWebhookId String?
   Notion           Notion?         @relation(fields: [notionId], references: [id])
   notionId         String?
-  User             User?           @relation(fields: [userId], references: [clerkId])
-  userId           String?
+  User             User?           @relation(fields: [userId], references: [id])
+  userId           Int?
   Slack            Slack?          @relation(fields: [slackId], references: [id])
   slackId          String?
 }
@@ -119,6 +118,6 @@ model Workflows {
   cronPath          String?
   publish           Boolean? @default(false)
   description       String
-  User              User     @relation(fields: [userId], references: [clerkId])
-  userId            String
+  User              User     @relation(fields: [userId], references: [id])
+  userId            Int
 }

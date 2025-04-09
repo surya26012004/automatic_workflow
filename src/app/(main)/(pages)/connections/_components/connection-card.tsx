@@ -15,6 +15,7 @@ type Props = {
   title: ConnectionTypes;
   description: string;
   callback?: () => void;
+  connected?: { [key: string]: boolean };
 };
 
 const ConnectionCard = ({
@@ -23,7 +24,10 @@ const ConnectionCard = ({
   icon,
   title,
   callback,
+  connected,
 }: Props) => {
+  const isConnected = connected?.[title] || false;
+
   return (
     <Card className="flex w-full min-h-[80px] items-center justify-between bg-[#1C1C1C] border-[#2A2A2A] hover:border-[#3A3A3A] transition-colors">
       <CardHeader className="flex-1 py-3 px-8 w-full">
@@ -49,15 +53,20 @@ const ConnectionCard = ({
                     title == "Discord"
                       ? process.env.NEXT_PUBLIC_DISCORD_REDIRECT!
                       : title == "Notion"
-                      ? process.env.NEXT_PUBLIC_NOTION_AUTH_URL!
-                      : title == "Slack"
-                      ? process.env.NEXT_PUBLIC_SLACK_REDIRECT!
-                      : "#"
+                        ? process.env.NEXT_PUBLIC_NOTION_AUTH_URL!
+                        : title == "Slack"
+                          ? process.env.NEXT_PUBLIC_SLACK_REDIRECT!
+                          : title == "Google Drive"
+                            ? process.env.NEXT_PUBLIC_GOOGLE_DRIVE_AUTH_URL!
+                            : "#"
                   }
                   onClick={callback}
-                  className="rounded-lg bg-white/10 px-4 py-1.5 text-sm font-medium text-white hover:bg-white/20 transition-colors"
+                  className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${isConnected
+                    ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
+                    : "bg-white/10 text-white hover:bg-white/20"
+                    }`}
                 >
-                  Connect
+                  {isConnected ? "Connected" : "Connect"}
                 </Link>
               </div>
             </div>
