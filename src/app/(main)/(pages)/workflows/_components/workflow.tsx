@@ -1,27 +1,37 @@
-"use client";
-import React from "react";
+import React from 'react'
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
-import Image from "next/image";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/card'
+import Link from 'next/link'
+import Image from 'next/image'
+import { Label } from '@/components/ui/label'
+import { Switch } from '@/components/ui/switch'
+import { toast } from 'sonner'
+import { onFlowPublish } from '../_actions/workflow-connections'
 
 type Props = {
-  name: string;
-  description: string;
-  id: string;
-  publish: boolean | null;
-};
+  name: string
+  description: string
+  id: string
+  publish: boolean | null
+}
 
 const Workflow = ({ description, id, name, publish }: Props) => {
+  const onPublishFlow = async (event: any) => {
+    const response = await onFlowPublish(
+      id,
+      event.target.ariaChecked === 'false'
+    )
+    if (response) toast.message(response)
+  }
+
   return (
-    <Card className="relative flex w-full items-start p-6">
-      <Link href={`/workflows/editor/${id}`} className="flex-1">
-        <div className="flex flex-col gap-4">
+    <Card className="flex w-full items-center justify-between">
+      <CardHeader className="flex flex-col gap-4">
+        <Link href={`/workflows/editor/${id}`}>
           <div className="flex flex-row gap-2">
             <Image
               src="/googleDrive.png"
@@ -32,48 +42,40 @@ const Workflow = ({ description, id, name, publish }: Props) => {
             />
             <Image
               src="/notion.png"
-              alt="Notion"
+              alt="Google Drive"
               height={30}
               width={30}
               className="object-contain"
             />
             <Image
               src="/discord.png"
-              alt="Discord"
+              alt="Google Drive"
               height={30}
               width={30}
               className="object-contain"
             />
           </div>
-          <div>
-            <CardTitle className="text-lg font-medium">{name}</CardTitle>
+          <div className="">
+            <CardTitle className="text-lg">{name}</CardTitle>
             <CardDescription>{description}</CardDescription>
           </div>
-        </div>
-      </Link>
-      <div className="absolute top-4 right-4 flex flex-col items-center gap-1.5">
-        <span className="text-sm text-muted-foreground">
-          {/* {publish ? "On" : "Off"} */}On
-        </span>
-        <label className="relative inline-flex items-center cursor-pointer">
-          <input
-            type="checkbox"
-            id="airplane-mode"
-            // onClick={onPublishFlow}
-            defaultChecked={publish!}
-            onChange={() => {}}
-            className="sr-only peer"
-          />
-          <div
-            className="w-9 h-5 bg-zinc-900 rounded-full peer 
-            peer-checked:after:translate-x-full peer-checked:after:border-white 
-            after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
-            after:bg-zinc-600 after:rounded-full after:h-4 after:w-4 after:transition-all"
-          ></div>
-        </label>
+        </Link>
+      </CardHeader>
+      <div className="flex flex-col items-center gap-2 p-4">
+        <Label
+          htmlFor="airplane-mode"
+          className="text-muted-foreground"
+        >
+          {publish! ? 'On' : 'Off'}
+        </Label>
+        <Switch
+          id="airplane-mode"
+          // onClick={onPublishFlow}
+          defaultChecked={publish!}
+        />
       </div>
     </Card>
-  );
-};
+  )
+}
 
-export default Workflow;
+export default Workflow
