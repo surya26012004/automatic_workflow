@@ -1,10 +1,14 @@
 'use server'
 import { Option } from '@/components/ui/multiple-selector'
 import { db } from '@/lib/db'
-import { auth, currentUser } from '@clerk/nextjs'
+
+interface Channel {
+    value: string;
+    label: string;
+}
 
 export const getGoogleListener = async () => {
-    const { userId } = auth()
+    const userId = "9393"
 
     if (userId) {
         const listener = await db.user.findUnique({
@@ -39,7 +43,7 @@ export const onCreateNodeTemplate = async (
     content: string,
     type: string,
     workflowId: string,
-    channels?: Option[],
+    channels?: Channel[],
     accessToken?: string,
     notionDbId?: string
 ) => {
@@ -81,12 +85,12 @@ export const onCreateNodeTemplate = async (
             if (channelList) {
                 //remove duplicates before insert
                 const NonDuplicated = channelList.slackChannels.filter(
-                    (channel) => channel !== channels![0].value
+                    (channel: string) => channel !== channels![0].value
                 )
 
                 NonDuplicated!
-                    .map((channel) => channel)
-                    .forEach(async (channel) => {
+                    .map((channel: string) => channel)
+                    .forEach(async (channel: string) => {
                         await db.workflows.update({
                             where: {
                                 id: workflowId,
@@ -136,34 +140,29 @@ export const onCreateNodeTemplate = async (
 }
 
 export const onGetWorkflows = async () => {
-    const user = await currentUser()
-    if (user) {
-        const workflow = await db.workflows.findMany({
-            where: {
-                userId: user.id,
-            },
-        })
+    const userId = "9393"
+    const workflow = await db.workflows.findMany({
+        where: {
+            userId: userId,
+        },
+    })
 
-        if (workflow) return workflow
-    }
+    if (workflow) return workflow
 }
 
 export const onCreateWorkflow = async (name: string, description: string) => {
-    const user = await currentUser()
+    const userId = "9393"
+    //create new workflow
+    const workflow = await db.workflows.create({
+        data: {
+            userId: userId,
+            name,
+            description,
+        },
+    })
 
-    if (user) {
-        //create new workflow
-        const workflow = await db.workflows.create({
-            data: {
-                userId: user.id,
-                name,
-                description,
-            },
-        })
-
-        if (workflow) return { message: 'workflow created' }
-        return { message: 'Oops! try again' }
-    }
+    if (workflow) return { message: 'workflow created' }
+    return { message: 'Oops! try again' }
 }
 
 export const onGetNodesEdges = async (flowId: string) => {

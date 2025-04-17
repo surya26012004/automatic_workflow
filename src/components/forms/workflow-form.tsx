@@ -24,7 +24,7 @@ import { Button } from '../ui/button'
 import { Loader2 } from 'lucide-react'
 // import { toast } from 'sonner'
 // import { onCreateWorkflow } from '@/app/(main)/(pages)/workflows/_actionsworkflow-connections'
-import { useModal } from '@/providers/modal-providers'
+import { useModal } from '@/providers/modal-provider'
 
 type Props = {
   title?: string
