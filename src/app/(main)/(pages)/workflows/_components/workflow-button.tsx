@@ -4,7 +4,7 @@ import Workflowform from "@/components/forms/workflow-form";
 import CustomModal from "@/components/Global/custom-modal";
 import { Button } from "@/components/ui/button";
 // import { useBilling } from "@/providers/billing-provider";
-import { useModal } from "@/providers/modal-providers";
+import { useModal } from "@/providers/modal-provider";
 import { Plus } from "lucide-react";
 import React from "react";
 
@@ -29,7 +29,8 @@ const WorkflowButton = (props: Props) => {
     <Button
       size={"lg"}
       onClick={handleClick}
-      className="bg-purple-200 hover:bg-purple-400 text-purple-900 w-14 h-14 rounded-lg"
+      className="bg-purple-100 text-purple-700 w-14 h-14 rounded-full shadow-md border border-purple-200 transition-all duration-200 hover:bg-purple-200 hover:text-purple-900 hover:shadow-lg focus:ring-2 focus:ring-purple-400 focus:outline-none"
+      aria-label="Create new workflow"
     >
       <Plus className="w-6 h-6" />
     </Button>

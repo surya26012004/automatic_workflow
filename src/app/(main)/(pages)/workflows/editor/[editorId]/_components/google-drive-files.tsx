@@ -5,7 +5,7 @@ import axios from 'axios'
 import { getGoogleListener } from '../../../_actions/workflow-connections'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription } from '@/components/ui/card'
-import { CardContainer } from '@/components/global/3d-card'
+// import { CardContainer } from '@/components/global/3d-card'
 
 type Props = {}
 
@@ -39,9 +39,9 @@ const GoogleDriveFiles = (props: Props) => {
     <div className="flex flex-col gap-3 pb-6">
       {isListening ? (
         <Card className="py-3">
-          <CardContainer>
+          {/* <CardContainer>
             <CardDescription>Listening...</CardDescription>
-          </CardContainer>
+          </CardContainer> */}
         </Card>
       ) : (
         <Button
