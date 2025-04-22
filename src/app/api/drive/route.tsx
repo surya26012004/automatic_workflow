@@ -21,6 +21,10 @@ export async function GET() {
     'oauth_google'
   )
 
+  if (!Array.isArray(clerkResponse) || !clerkResponse[0] || !clerkResponse[0].token) {
+    return NextResponse.json({ message: 'No Google OAuth token found for user' }, { status: 401 })
+  }
+
   const accessToken = clerkResponse[0].token
   oauth2Client.setCredentials({
     access_token: accessToken,
@@ -35,7 +39,7 @@ export async function GET() {
     const response = await drive.files.list()
 
     if (response) {
-      return Response.json(
+      return NextResponse.json(
         {
           message: response.data,
         },
@@ -44,7 +48,7 @@ export async function GET() {
         }
       )
     } else {
-      return Response.json(
+      return NextResponse.json(
         {
           message: 'No files found',
         },
@@ -54,7 +58,7 @@ export async function GET() {
       )
     }
   } catch (error) {
-    return Response.json(
+    return NextResponse.json(
       {
         message: 'Something went wrong',
       },

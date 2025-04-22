@@ -28,7 +28,7 @@ import { v4 } from "uuid";
 import { EditorCanvasDefaultCardTypes } from "@/lib/constant";
 import FlowInstance from "./flow-instance";
 import EditorCanvasSidebar from "./editor-canvas-sidebar";
-// import { onGetNodesEdges } from "../../../_actions/workflow-connections";
+import { onGetNodesEdges } from "../../../_actions/workflow-connections";
 
 type Props = {};
 
@@ -163,20 +163,20 @@ const EditorCanvas = (props: Props) => {
     []
   );
 
-  // const onGetWorkFlow = async () => {
-  //   setIsWorkFlowLoading(true);
-  //   const response = await onGetNodesEdges(pathname.split("/").pop()!);
-  //   if (response) {
-  //     setEdges(JSON.parse(response.edges!));
-  //     setNodes(JSON.parse(response.nodes!));
-  //     setIsWorkFlowLoading(false);
-  //   }
-  //   setIsWorkFlowLoading(false);
-  // };
+  const onGetWorkFlow = async () => {
+    setIsWorkFlowLoading(true);
+    const response = await onGetNodesEdges(pathname.split("/").pop()!);
+    if (response) {
+      setEdges(JSON.parse(response.edges!));
+      setNodes(JSON.parse(response.nodes!));
+      setIsWorkFlowLoading(false);
+    }
+    setIsWorkFlowLoading(false);
+  };
 
-  // useEffect(() => {
-  //   onGetWorkFlow();
-  // }, []);
+  useEffect(() => {
+    onGetWorkFlow();
+  }, []);
 
   return (
     <ResizablePanelGroup direction="horizontal">
@@ -239,7 +239,14 @@ const EditorCanvas = (props: Props) => {
         </div>
       </ResizablePanel>
       <ResizableHandle />
-      <ResizablePanel defaultSize={40} className="relative sm:block">
+      <ResizablePanel
+        defaultSize={40}
+        className={
+          state.editor.selectedNode && state.editor.selectedNode.data.title
+            ? "relative sm:block"
+            : "!p-0 !m-0 !w-0 !min-w-0 !max-w-0 !h-0 !min-h-0 !max-h-0 overflow-hidden"
+        }
+      >
         {isWorkFlowLoading ? (
           <div className="absolute flex h-full w-full items-center justify-center">
             <svg
@@ -260,9 +267,11 @@ const EditorCanvas = (props: Props) => {
             </svg>
           </div>
         ) : (
-          <FlowInstance edges={edges} nodes={nodes}>
-            <EditorCanvasSidebar nodes={nodes} />
-          </FlowInstance>
+          state.editor.selectedNode && state.editor.selectedNode.data.title ? (
+            <FlowInstance edges={edges} nodes={nodes}>
+              <EditorCanvasSidebar nodes={nodes} />
+            </FlowInstance>
+          ) : null
         )}
       </ResizablePanel>
     </ResizablePanelGroup>

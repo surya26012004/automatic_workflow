@@ -1,8 +1,6 @@
-@import "tailwindcss";
-/* @import "tailwind" */
-@plugin "tailwindcss-animate";
-
-@custom-variant dark (&:is(.dark *));
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 *,
 *::before,
@@ -150,3 +148,5 @@
     @apply bg-background text-foreground;
   }
 }
+
+
