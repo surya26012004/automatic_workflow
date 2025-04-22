@@ -21,6 +21,10 @@ export async function GET() {
     'oauth_google'
   )
 
+  if (!Array.isArray(clerkResponse) || !clerkResponse[0] || !clerkResponse[0].token) {
+    return NextResponse.json({ message: 'No Google OAuth token found for user' }, { status: 401 })
+  }
+
   const accessToken = clerkResponse[0].token
   oauth2Client.setCredentials({
     access_token: accessToken,

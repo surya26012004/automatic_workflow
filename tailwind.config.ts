@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+/** @type {import('tailwindcss').Config} */
 const svgToDataUri = require("mini-svg-data-uri");
  
 const colors = require("tailwindcss/colors");
@@ -12,6 +13,7 @@ const config = {
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
+    "./src/**/*.{js,ts,jsx,tsx}",
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
@@ -162,14 +164,14 @@ const config = {
   ],
 } satisfies Config
 
-// function addVariablesForColors({ addBase, theme }: any) {
-//   let allColors = flattenColorPalette(theme('colors'))
-//   let newVars = Object.fromEntries(
-//     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-//   )
-//   addBase({
-//     ':root': newVars,
-//   })
-// }
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme('colors'))
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  )
+  addBase({
+    ':root': newVars,
+  })
+}
 
 export default config

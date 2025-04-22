@@ -4,7 +4,7 @@ import { db } from '@/lib/db'
 import { auth, currentUser } from '@clerk/nextjs'
 
 export const getGoogleListener = async () => {
-  const { userId } = auth()
+  const { userId } = await auth()
 
   if (userId) {
     const listener = await db.user.findUnique({

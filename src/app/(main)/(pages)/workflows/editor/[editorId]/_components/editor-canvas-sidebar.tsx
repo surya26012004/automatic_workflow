@@ -52,6 +52,11 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
     }
   }, [nodeConnection]);
 
+  // Only render if a node is selected and has a title
+  if (!state.editor.selectedNode || !state.editor.selectedNode.data.title) {
+    return null;
+  }
+
   return (
     <aside>
       <Tabs defaultValue="actions" className="h-screen overflow-scroll pb-24">

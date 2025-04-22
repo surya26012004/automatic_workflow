@@ -6,6 +6,7 @@ import { onDiscordConnect } from './_actions/discord-connection'
 import { onNotionConnect } from './_actions/notion-connection'
 import { onSlackConnect } from './_actions/slack-connection'
 import { getUserData } from './_actions/get-user'
+import { Connections as ConnectionType } from '@prisma/client'
 
 type Props = {
   searchParams?: { [key: string]: string | undefined }
@@ -76,7 +77,7 @@ const Connections = async (props: Props) => {
     const user_info = await getUserData(user.id)
 
     //get user info with all connections
-    user_info?.connections.map((connection) => {
+    user_info?.connections.map((connection: ConnectionType) => {
       connections[connection.type] = true
       return (connections[connection.type] = true)
     })
